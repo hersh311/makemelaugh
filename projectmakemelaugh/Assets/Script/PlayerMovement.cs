@@ -13,6 +13,11 @@ public class PlayerMovement : MonoBehaviour
 	public float heightplus = 5;
 	public float speedplus = 11;
 	public bool goofy = true;
+	public int E_goofy=0;
+	public int E_ngoofy=0;
+	public int Q_ngoofy=0;
+	public int Q_goofy = 0;
+
 	public Slider goofyswitch;
 	public TextMeshProUGUI goofy_text;
 	#region Variables
@@ -210,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 		#endregion
 		//switching goofy ON/OFF
-		if(Input.GetKeyDown(KeyCode.RightShift)|| (Input.GetKeyDown(KeyCode.LeftShift)))
+		if(Input.GetKeyDown(KeyCode.Tab))
 		{
 			switch_goofy();
 		}
@@ -222,29 +227,35 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Q) && !goofy)
         {
             Hooked(true);
-			
             Data.jumpForce = Data.jumpForce + heightplus;
             OnJumpInput();
+			E_goofy = 0;
+			E_ngoofy = 0;
+			Q_goofy = 0;
         }
         if (Input.GetKeyUp(KeyCode.Q) && !goofy)
         {
             OnJumpUpInput();
             Data.jumpForce = init_force;
             Hooked(false);
+			Q_ngoofy += 1;
         }
         //hammer
         else if (Input.GetKeyDown(KeyCode.Q) && goofy)
 		{ 
             Hammer(true);
-
             Data.jumpForce = Data.jumpForce + heightplus;
             OnJumpInput();
+            E_goofy = 0;
+            Q_ngoofy = 0;
+            E_ngoofy = 0;
         }
         else if (Input.GetKeyUp(KeyCode.Q) && goofy)
         {
             OnJumpUpInput();
             Data.jumpForce = init_force;
             Hammer(false);
+			Q_goofy += 1;
         }
 		//Dashes
 		//==================
@@ -255,12 +266,15 @@ public class PlayerMovement : MonoBehaviour
 			
 			Data.runMaxSpeed=Data.runMaxSpeed+speedplus;
 			Axe(true);
+			Q_goofy = 0;
+			Q_ngoofy = 0;
+			E_goofy = 0;
 		  }
 		if (Input.GetKeyUp(KeyCode.E) && !goofy)
 		{
             Data.runMaxSpeed = init_speed;
 			Axe(false);
-
+			E_ngoofy += 1;
         }
 		//Punch
         if (Input.GetKeyDown(KeyCode.E) && goofy)
@@ -268,13 +282,22 @@ public class PlayerMovement : MonoBehaviour
             
             Data.runMaxSpeed = Data.runMaxSpeed + speedplus;
 			Punch(true);
+            Q_goofy = 0;
+            Q_ngoofy = 0;
+            E_ngoofy = 0;
         }
         if (Input.GetKeyUp(KeyCode.E) && goofy)
         {
             Data.runMaxSpeed = init_speed;
 			Punch(false);
+			E_goofy += 1;
 
         }
+		//GOOFY METER FUNCTIONS
+		if (E_goofy > 1 || E_ngoofy > 1 || Q_goofy > 1 || Q_ngoofy > 1)
+		{
+			//Get more sad
+		}
     }
 
 	private void FixedUpdate()
