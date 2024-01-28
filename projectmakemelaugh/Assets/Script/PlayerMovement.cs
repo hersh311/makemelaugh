@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 
 	public PlayerData Data;
 	public Animator animator;
+	public float init_force;
+	public float heightplus = 5;
 
 	#region Variables
 
@@ -55,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
 	private void Start()
 	{
 		SetGravityScale(Data.gravityScale);
+		init_force = Data.jumpForce;
 		IsFacingRight = true;
 	}
 
@@ -199,9 +202,25 @@ public class PlayerMovement : MonoBehaviour
 			SetGravityScale(Data.gravityScale);
 		}
 		#endregion
-		Walking_animated(_moveInput.x);	
+		//walking animation
+		Walking_animated(_moveInput.x);
+		//hooked
+		
+        if(Input.GetKeyDown(KeyCode.Q))
+{
+            Hooked(true);
+			
+            Data.jumpForce = Data.jumpForce + heightplus;
+            OnJumpInput();
+        }
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            OnJumpUpInput();
+            Data.jumpForce = init_force;
+            Hooked(false);
+        }
 
-	}
+    }
 
 	private void FixedUpdate()
 	{
@@ -408,4 +427,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
 }
+	void Hooked(bool x)
+	{
+		animator.SetBool("hooked", x);
+
+	}
 }
