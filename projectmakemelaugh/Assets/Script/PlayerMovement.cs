@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -7,8 +9,12 @@ public class PlayerMovement : MonoBehaviour
 	public PlayerData Data;
 	public Animator animator;
 	public float init_force;
+	public float init_speed;
 	public float heightplus = 5;
+	public float speedplus = 11;
 	public bool goofy = true;
+	public Slider goofyswitch;
+	public TextMeshProUGUI goofy_text;
 	#region Variables
 
 	public Rigidbody2D RB { get; private set; }
@@ -58,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		SetGravityScale(Data.gravityScale);
 		init_force = Data.jumpForce;
+		init_speed = Data.runMaxSpeed;
 		IsFacingRight = true;
 	}
 
@@ -226,20 +233,48 @@ public class PlayerMovement : MonoBehaviour
             Hooked(false);
         }
         //hammer
-        if (Input.GetKeyDown(KeyCode.Q) && goofy)
+        else if (Input.GetKeyDown(KeyCode.Q) && goofy)
 		{ 
             Hammer(true);
 
             Data.jumpForce = Data.jumpForce + heightplus;
             OnJumpInput();
         }
-        if (Input.GetKeyUp(KeyCode.Q) && goofy)
+        else if (Input.GetKeyUp(KeyCode.Q) && goofy)
         {
             OnJumpUpInput();
             Data.jumpForce = init_force;
             Hammer(false);
         }
+		//Dashes
+		//==================
+		//Decapitation(No head)
 
+		if(Input.GetKeyDown(KeyCode.E) && !goofy)
+		{ //
+			
+			Data.runMaxSpeed=Data.runMaxSpeed+speedplus;
+			Axe(true);
+		  }
+		if (Input.GetKeyUp(KeyCode.E) && !goofy)
+		{
+            Data.runMaxSpeed = init_speed;
+			Axe(false);
+
+        }
+		//Punch
+        if (Input.GetKeyDown(KeyCode.E) && goofy)
+        { //
+            
+            Data.runMaxSpeed = Data.runMaxSpeed + speedplus;
+			Punch(true);
+        }
+        if (Input.GetKeyUp(KeyCode.E) && goofy)
+        {
+            Data.runMaxSpeed = init_speed;
+			Punch(false);
+
+        }
     }
 
 	private void FixedUpdate()
@@ -436,11 +471,15 @@ public class PlayerMovement : MonoBehaviour
 		if (goofy)
 		{
 			goofy = false;
+			goofyswitch.value = 1;
+			goofy_text.SetText("SAD");
 		}
 		else
 		{
 			goofy = true;
-		}
+			goofyswitch.value = 0;
+            goofy_text.SetText("GOOFY");
+        }
 	}
 	void Walking_animated(float x)
 	{
@@ -467,4 +506,11 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("Hammer", x);
 
     }
+    void Axe(bool x)
+    {
+        animator.SetBool("Head_Off", x);
+
+    }
+	void Punch(bool x)
+	{ animator.SetBool("Punched", x); }
 }
