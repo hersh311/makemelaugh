@@ -7,6 +7,11 @@ public class GoofyScript : MonoBehaviour
     private float rotationValue = 0;
     public float scaledValue = 0.5f;
 
+    private void Start()
+    {
+        scaledValue = 0.5f;
+    }
+
     void Update()
     {
         rotationValue = Mathf.Clamp(rotationValue, -0.8f, 0.15f);

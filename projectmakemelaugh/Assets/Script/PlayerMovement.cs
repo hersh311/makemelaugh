@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 	public Animator animator;
 	public float init_force;
 	public float init_speed;
-	public float heightplus = 5;
+	public float heightplus = 50;
 	public float speedplus = 11;
 	public bool goofy = true;
 	public int E_goofy=0;
