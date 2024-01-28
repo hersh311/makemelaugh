@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -222,15 +223,15 @@ public class PlayerMovement : MonoBehaviour
 
 		if(goofymeter >= 100)
         {
-			Debug.Log("TOO SAD");
-        }
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
 		if(goofymeter <= 0)
         {
-			Debug.Log("TOO SILLY");
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 
 		//switching goofy ON/OFF
-		if(Input.GetKeyDown(KeyCode.Tab))
+		if(Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.LeftShift))
 		{
 			switch_goofy();
 		}
@@ -239,7 +240,7 @@ public class PlayerMovement : MonoBehaviour
 		//Jumps
 		//=============
 		//hooked
-        if(Input.GetKeyDown(KeyCode.Q) && !goofy)
+        if((Input.GetKeyDown(KeyCode.Q) || (Input.GetButtonDown("Fire1"))) && !goofy)
         {
             Hooked(true);
             Data.jumpForce = Data.jumpForce + heightplus;
@@ -248,7 +249,7 @@ public class PlayerMovement : MonoBehaviour
 			E_ngoofy = 0;
 			Q_goofy = 0;
         }
-        if (Input.GetKeyUp(KeyCode.Q) && !goofy)
+        if ((Input.GetKeyUp(KeyCode.Q) || (Input.GetButtonUp("Fire1"))) && !goofy)
         {
             OnJumpUpInput();
             Data.jumpForce = init_force;
@@ -257,7 +258,7 @@ public class PlayerMovement : MonoBehaviour
 			goofymeter += 15;
         }
         //hammer
-        else if (Input.GetKeyDown(KeyCode.Q) && goofy)
+        else if ((Input.GetKeyDown(KeyCode.Q) || (Input.GetButtonDown("Fire1"))) && goofy)
 		{ 
             Hammer(true);
             Data.jumpForce = Data.jumpForce + heightplus;
@@ -266,7 +267,7 @@ public class PlayerMovement : MonoBehaviour
             Q_ngoofy = 0;
             E_ngoofy = 0;
         }
-        else if (Input.GetKeyUp(KeyCode.Q) && goofy)
+        else if ((Input.GetKeyUp(KeyCode.Q) || (Input.GetButtonUp("Fire1"))) && goofy)
         {
             OnJumpUpInput();
             Data.jumpForce = init_force;
@@ -278,7 +279,7 @@ public class PlayerMovement : MonoBehaviour
 		//==================
 		//Decapitation(No head)
 
-		if(Input.GetKeyDown(KeyCode.E) && !goofy)
+		if((Input.GetKeyDown(KeyCode.E) || (Input.GetButtonDown("Fire2"))) && !goofy)
 		{ //
 			
 			Data.runMaxSpeed=Data.runMaxSpeed+speedplus;
@@ -287,7 +288,7 @@ public class PlayerMovement : MonoBehaviour
 			Q_ngoofy = 0;
 			E_goofy = 0;
 		  }
-		if (Input.GetKeyUp(KeyCode.E) && !goofy)
+		if ((Input.GetKeyUp(KeyCode.E) || (Input.GetButtonUp("Fire2"))) && !goofy)
 		{
             Data.runMaxSpeed = init_speed;
 			Axe(false);
@@ -295,7 +296,7 @@ public class PlayerMovement : MonoBehaviour
 			goofymeter += 15;
 		}
 		//Punch
-        if (Input.GetKeyDown(KeyCode.E) && goofy)
+        if ((Input.GetKeyDown(KeyCode.E) || (Input.GetButtonDown("Fire2"))) && goofy)
         { //
             
             Data.runMaxSpeed = Data.runMaxSpeed + speedplus;
@@ -304,7 +305,7 @@ public class PlayerMovement : MonoBehaviour
             Q_ngoofy = 0;
             E_ngoofy = 0;
         }
-        if (Input.GetKeyUp(KeyCode.E) && goofy)
+        if ((Input.GetKeyUp(KeyCode.E) || (Input.GetButtonUp("Fire2"))) && goofy)
         {
             Data.runMaxSpeed = init_speed;
 			Punch(false);
