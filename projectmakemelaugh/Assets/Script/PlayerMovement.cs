@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
 	public Animator animator;
 	public float init_force;
 	public float heightplus = 5;
-
+	public bool goofy = true;
 	#region Variables
 
 	public Rigidbody2D RB { get; private set; }
@@ -202,22 +202,42 @@ public class PlayerMovement : MonoBehaviour
 			SetGravityScale(Data.gravityScale);
 		}
 		#endregion
+		//switching goofy ON/OFF
+		if(Input.GetKeyDown(KeyCode.RightShift)|| (Input.GetKeyDown(KeyCode.LeftShift)))
+		{
+			switch_goofy();
+		}
 		//walking animation
 		Walking_animated(_moveInput.x);
+		//Jumps
+		//=============
 		//hooked
-		
-        if(Input.GetKeyDown(KeyCode.Q))
-{
+        if(Input.GetKeyDown(KeyCode.Q) && !goofy)
+        {
             Hooked(true);
 			
             Data.jumpForce = Data.jumpForce + heightplus;
             OnJumpInput();
         }
-        if (Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyUp(KeyCode.Q) && !goofy)
         {
             OnJumpUpInput();
             Data.jumpForce = init_force;
             Hooked(false);
+        }
+        //hammer
+        if (Input.GetKeyDown(KeyCode.Q) && goofy)
+		{ 
+            Hammer(true);
+
+            Data.jumpForce = Data.jumpForce + heightplus;
+            OnJumpInput();
+        }
+        if (Input.GetKeyUp(KeyCode.Q) && goofy)
+        {
+            OnJumpUpInput();
+            Data.jumpForce = init_force;
+            Hammer(false);
         }
 
     }
@@ -411,7 +431,17 @@ public class PlayerMovement : MonoBehaviour
 		Gizmos.DrawWireCube(_backWallCheckPoint.position, _wallCheckSize);
 	}
 	#endregion
-
+	void switch_goofy()
+	{
+		if (goofy)
+		{
+			goofy = false;
+		}
+		else
+		{
+			goofy = true;
+		}
+	}
 	void Walking_animated(float x)
 	{
         //walking animation
@@ -432,4 +462,9 @@ public class PlayerMovement : MonoBehaviour
 		animator.SetBool("hooked", x);
 
 	}
+    void Hammer(bool x)
+    {
+        animator.SetBool("Hammer", x);
+
+    }
 }
