@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
 	public PlayerData Data;
+	public Animator animator;
 
 	#region Variables
 
@@ -198,6 +199,8 @@ public class PlayerMovement : MonoBehaviour
 			SetGravityScale(Data.gravityScale);
 		}
 		#endregion
+		Walking_animated(_moveInput.x);	
+
 	}
 
 	private void FixedUpdate()
@@ -213,9 +216,9 @@ public class PlayerMovement : MonoBehaviour
 			Slide();
 	}
 
-	#region INPUT CALLBACKS
+    #region INPUT CALLBACKS
 
-	public void OnJumpInput()
+    public void OnJumpInput()
 	{
 		LastPressedJumpTime = Data.jumpInputBufferTime;
 	}
@@ -389,4 +392,20 @@ public class PlayerMovement : MonoBehaviour
 		Gizmos.DrawWireCube(_backWallCheckPoint.position, _wallCheckSize);
 	}
 	#endregion
+
+	void Walking_animated(float x)
+	{
+        //walking animation
+        if (x != 0)
+        {
+
+            animator.SetBool("Walk", true);
+        }
+        else
+        {
+
+            animator.SetBool("Walk", false);
+        }
+
+}
 }
