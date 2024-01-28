@@ -248,7 +248,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TRY AGAIN?
+  m_text: TRY AGAIN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4be335359f839634bae8244fd5f3c47e, type: 2}
   m_sharedMaterial: {fileID: -3878154405350418449, guid: 4be335359f839634bae8244fd5f3c47e, type: 2}
@@ -407,7 +407,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1014203959}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1366012224}
+        m_TargetAssemblyTypeName: try_again, Assembly-CSharp
+        m_MethodName: trytwo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1014203959
 MonoBehaviour:
   m_ObjectHideFlags: 0

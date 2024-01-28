@@ -15,7 +15,7 @@ public class try_again : MonoBehaviour
     {
         
     }
-    public void try_again()
+    public void trytwo()
     {
         SceneManager.LoadScene(1);
     }
