@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
 	public int E_ngoofy=0;
 	public int Q_ngoofy=0;
 	public int Q_goofy = 0;
+	public float goofymeter = 50;
+	public GoofyScript goofyScript;
 
 	public Slider goofyswitch;
 	public TextMeshProUGUI goofy_text;
@@ -214,6 +216,19 @@ public class PlayerMovement : MonoBehaviour
 			SetGravityScale(Data.gravityScale);
 		}
 		#endregion
+		//Adjust goofy meter
+		goofymeter = Mathf.Clamp(goofymeter, 0, 100);
+		goofyScript.scaledValue = goofymeter / 100;
+
+		if(goofymeter >= 100)
+        {
+			Debug.Log("TOO SAD");
+        }
+		if(goofymeter <= 0)
+        {
+			Debug.Log("TOO SILLY");
+		}
+
 		//switching goofy ON/OFF
 		if(Input.GetKeyDown(KeyCode.Tab))
 		{
@@ -239,6 +254,7 @@ public class PlayerMovement : MonoBehaviour
             Data.jumpForce = init_force;
             Hooked(false);
 			Q_ngoofy += 1;
+			goofymeter += 15;
         }
         //hammer
         else if (Input.GetKeyDown(KeyCode.Q) && goofy)
@@ -256,7 +272,8 @@ public class PlayerMovement : MonoBehaviour
             Data.jumpForce = init_force;
             Hammer(false);
 			Q_goofy += 1;
-        }
+			goofymeter -= 15;
+		}
 		//Dashes
 		//==================
 		//Decapitation(No head)
@@ -275,7 +292,8 @@ public class PlayerMovement : MonoBehaviour
             Data.runMaxSpeed = init_speed;
 			Axe(false);
 			E_ngoofy += 1;
-        }
+			goofymeter += 15;
+		}
 		//Punch
         if (Input.GetKeyDown(KeyCode.E) && goofy)
         { //
@@ -291,8 +309,8 @@ public class PlayerMovement : MonoBehaviour
             Data.runMaxSpeed = init_speed;
 			Punch(false);
 			E_goofy += 1;
-
-        }
+			goofymeter -= 15;
+		}
 		//GOOFY METER FUNCTIONS
 		if (E_goofy > 1 || E_ngoofy > 1 || Q_goofy > 1 || Q_ngoofy > 1)
 		{

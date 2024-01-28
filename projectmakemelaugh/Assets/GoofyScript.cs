@@ -9,7 +9,7 @@ public class GoofyScript : MonoBehaviour
 
     private void Start()
     {
-        scaledValue = 0.5f;
+        //scaledValue = 0.5f;
     }
 
     void Update()
