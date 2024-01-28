@@ -13450,7 +13450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GOOFY
+  m_text: SILLY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4be335359f839634bae8244fd5f3c47e, type: 2}
   m_sharedMaterial: {fileID: -3878154405350418449, guid: 4be335359f839634bae8244fd5f3c47e, type: 2}

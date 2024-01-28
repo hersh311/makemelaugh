@@ -520,7 +520,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			goofy = true;
 			goofyswitch.value = 0;
-            goofy_text.SetText("GOOFY");
+            goofy_text.SetText("SILLY");
         }
 	}
 	void Walking_animated(float x)
