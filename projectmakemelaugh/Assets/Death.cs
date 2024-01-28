@@ -16,14 +16,6 @@ public class Death : MonoBehaviour
         this.transform.position = new Vector3(player.transform.position.x, transform.position.y, transform.position.z);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("1");
-        if(collision.transform.tag == "Player")
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
